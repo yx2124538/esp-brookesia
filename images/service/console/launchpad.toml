@@ -1,7 +1,7 @@
 esp_toml_version = 1.0
 firmware_images_url = "https://yx2124538.github.io/esp-brookesia/service/console/"
 
-supported_apps = ["esp32_p4_function_ev","espressif_esp32_p4_function_ev","esp32_s3_korvo2_v3","esp_box_3","esp_vocat_board_v1_0","esp_vocat_board_v1_2","espressif_esp32_s3_korvo2_v3","espressif_esp_box_3","espressif_esp_vocat_board_v1_0","espressif_esp_vocat_board_v1_2","rymcu_rymcu_bigsmart","waveshare_esp32_s3_touch_amoled_1_75c","waveshare_esp32_s3_touch_amoled_1_8","waveshare_esp32_s3_touch_amoled_2_16"]
+supported_apps = ["esp32_p4_function_ev","espressif_esp32_p4_function_ev","espressif_esp32_p4x_function_ev","esp32_s3_korvo2_v3","esp_box_3","esp_vocat_board_v1_0","esp_vocat_board_v1_2","espressif_esp32_s3_korvo2_v3","espressif_esp_box_3","espressif_esp_vocat_board_v1_0","espressif_esp_vocat_board_v1_2","rymcu_rymcu_bigsmart","waveshare_esp32_s3_touch_amoled_1_75c","waveshare_esp32_s3_touch_amoled_1_8","waveshare_esp32_s3_touch_amoled_2_16"]
 
 [esp32_p4_function_ev]
 chipsets = ["ESP32P4"]
@@ -12,6 +12,12 @@ android_app_url = ""
 [espressif_esp32_p4_function_ev]
 chipsets = ["ESP32P4"]
 image.esp32p4 = "console_esp32p4_espressif_esp32_p4_function_ev.bin"
+ios_app_url = ""
+android_app_url = ""
+
+[espressif_esp32_p4x_function_ev]
+chipsets = ["ESP32P4"]
+image.esp32p4 = "console_esp32p4_espressif_esp32_p4x_function_ev.bin"
 ios_app_url = ""
 android_app_url = ""
 
