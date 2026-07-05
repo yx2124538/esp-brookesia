@@ -1,0 +1,3 @@
+esp_toml_version = 1.0
+firmware_images_url = "https://yx2124538.github.io/esp-brookesia/system/super/"
+
