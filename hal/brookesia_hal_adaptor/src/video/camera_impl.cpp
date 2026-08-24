@@ -17,6 +17,7 @@
 #include <sys/ioctl.h>
 
 #include "esp_err.h"
+#include "esp_board_device.h"
 #include "esp_board_manager.h"
 #include "esp_board_manager_defs.h"
 #include "dev_camera.h"
@@ -95,6 +96,16 @@ std::vector<video::EncoderSinkFormat> enumerate_supported_formats(const char *de
     return formats;
 }
 
+void enable_camera_power_rail()
+{
+    constexpr const char *k_camera_power = "camera_power";
+    if (!esp_board_manager_check_name(k_camera_power)) {
+        return;
+    }
+    (void)esp_board_manager_init_device_by_name(k_camera_power);
+    (void)esp_board_device_power_ctrl(ESP_BOARD_DEVICE_NAME_CAMERA, true);
+}
+
 } // namespace
 #endif // CONFIG_ESP_BOARD_DEV_CAMERA_SUPPORT
 
@@ -120,6 +131,9 @@ std::vector<VideoCameraImpl::DeviceInfo> VideoCameraImpl::discover_device_infos(
         BROOKESIA_LOGW("Camera device not found, skip discovery");
         return devices;
     }
+
+    /* Enable camera_power before DVP starts XCLK and SCCB. */
+    enable_camera_power_rail();
 
     auto ret = esp_board_manager_init_device_by_name(ESP_BOARD_DEVICE_NAME_CAMERA);
     if (ret != ESP_OK) {

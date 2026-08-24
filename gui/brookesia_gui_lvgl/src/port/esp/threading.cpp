@@ -8,13 +8,9 @@
 #include "private/types.hpp"
 #include "port/private/threading.hpp"
 
-#include <cstdint>
-
 namespace esp_brookesia::gui::lvgl {
 
 namespace {
-
-thread_local uint32_t thread_lock_depth = 0;
 
 void invalidate_if_available(lv_obj_t *object)
 {
@@ -27,24 +23,18 @@ void invalidate_if_available(lv_obj_t *object)
 
 void lock_thread()
 {
-    if (thread_lock_depth++ > 0) {
-        return;
-    }
-
+    /* C++ thread_local here used pthread TLS. On some scheduler workers that
+     * first hits this path, pthread_getspecific/mutex_lock load-faults (Core 1
+     * panic when Camera remounts the Shell background). The adapter lock is
+     * already a recursive FreeRTOS semaphore, so nest with that instead.
+     */
 #if BROOKESIA_GUI_LVGL_HAS_ESP_FONT_BACKEND
-    esp_lv_adapter_lock(-1);
+    (void)esp_lv_adapter_lock(-1);
 #endif
 }
 
 void unlock_thread()
 {
-    if (thread_lock_depth == 0) {
-        return;
-    }
-    if (--thread_lock_depth > 0) {
-        return;
-    }
-
 #if BROOKESIA_GUI_LVGL_HAS_ESP_FONT_BACKEND
     esp_lv_adapter_unlock();
 #endif
