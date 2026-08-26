@@ -98,6 +98,17 @@ static bool stop_sntp_sync()
     return true;
 }
 
+// Increased the stack size to 20KB specifically for this use case to prevent stack overflow risk with the default 10KB stack
+static service::LocalTestRunner::RunTestsConfig make_local_runner_config()
+{
+    service::LocalTestRunner::RunTestsConfig config(std::string(SNTPHelper::get_name()));
+    config.scheduler_config.worker_configs = {{
+        .name = "SntpTest",
+        .stack_size = 20 * 1024
+    }};
+    return config;
+}
+
 } // namespace
 
 BROOKESIA_TEST_CASE(test_servicesntp_basic_set_and_get, "Test ServiceSntp - basic set and get", "[service][sntp][basic]")
@@ -159,7 +170,7 @@ BROOKESIA_TEST_CASE(test_servicesntp_basic_set_and_get, "Test ServiceSntp - basi
     };
 
     service::LocalTestRunner runner;
-    bool all_passed = runner.run_tests(std::string(SNTPHelper::get_name()), test_items);
+    bool all_passed = runner.run_tests(make_local_runner_config(), test_items);
 
     TEST_ASSERT_TRUE_MESSAGE(all_passed, "Not all tests passed");
 
@@ -262,7 +273,7 @@ BROOKESIA_TEST_CASE(test_servicesntp_complete_workflow, "Test ServiceSntp - comp
     };
 
     service::LocalTestRunner runner;
-    bool all_passed = runner.run_tests(std::string(SNTPHelper::get_name()), test_items);
+    bool all_passed = runner.run_tests(make_local_runner_config(), test_items);
 
     TEST_ASSERT_TRUE_MESSAGE(all_passed, "Not all tests passed");
 
@@ -447,7 +458,7 @@ BROOKESIA_TEST_CASE(test_servicesntp_reset_data, "Test ServiceSntp - reset data"
     };
 
     service::LocalTestRunner runner;
-    bool all_passed = runner.run_tests(std::string(SNTPHelper::get_name()), test_items);
+    bool all_passed = runner.run_tests(make_local_runner_config(), test_items);
 
     TEST_ASSERT_TRUE_MESSAGE(all_passed, "Not all tests passed");
 
