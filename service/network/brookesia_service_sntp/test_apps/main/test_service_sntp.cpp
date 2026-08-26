@@ -103,9 +103,10 @@ static service::LocalTestRunner::RunTestsConfig make_local_runner_config()
 {
     service::LocalTestRunner::RunTestsConfig config(std::string(SNTPHelper::get_name()));
     config.scheduler_config.worker_configs = {{
-        .name = "SntpTest",
-        .stack_size = 20 * 1024
-    }};
+            .name = "SntpTest",
+            .stack_size = 20 * 1024
+        }
+    };
     return config;
 }
 
