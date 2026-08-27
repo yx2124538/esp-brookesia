@@ -1,5 +1,11 @@
 # ChangeLog
 
+## v0.8.4 - 2026-08-25
+
+### Bug Fixes:
+
+- fix(threading): use the recursive LVGL adapter lock instead of C++ thread-local nesting.
+
 ## v0.8.3 - 2026-08-05
 
 ### Enhancements:

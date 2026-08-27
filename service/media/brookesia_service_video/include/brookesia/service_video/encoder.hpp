@@ -131,6 +131,7 @@ private:
     std::shared_ptr<dataflow::VisualOperation> display_operation_;
     std::string display_output_name_;
     dataflow::VisualPixelFormat display_pixel_format_ = dataflow::VisualPixelFormat::Unknown;
+    dataflow::VisualByteOrder display_byte_order_ = dataflow::VisualByteOrder::Native;
     uint32_t display_x_ = 0;
     uint32_t display_y_ = 0;
     uint32_t display_draw_timeout_ms_ = 0;

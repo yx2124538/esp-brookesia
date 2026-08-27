@@ -1,5 +1,11 @@
 # ChangeLog
 
+## v0.8.4 - 2026-08-25
+
+### Bug Fixes:
+
+- fix(camera): enable the camera power rail before DVP clock and SCCB detect.
+
 ## v0.8.3 - 2026-07-27
 
 ### Enhancements:

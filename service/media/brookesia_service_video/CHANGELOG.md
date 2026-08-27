@@ -1,5 +1,11 @@
 # ChangeLog
 
+## v0.8.3 - 2026-08-25
+
+### Bug Fixes:
+
+- fix(preview): fill the display when size is 0 and swap RGB565 for Swap16 panels.
+
 ## v0.8.2 - 2026-07-27
 
 ### Enhancements:
